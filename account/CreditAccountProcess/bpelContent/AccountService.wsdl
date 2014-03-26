@@ -1,0 +1,346 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ax2462="http://service/xsd" xmlns:ns1="http://org.apache.axis2/xsd"
+	xmlns:ns="http://service" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://service">
+	<wsdl:documentation>AccountService</wsdl:documentation>
+	<wsdl:types>
+		<xs:schema attributeFormDefault="qualified"
+			elementFormDefault="qualified" targetNamespace="http://service/xsd">
+			<xs:complexType name="Account">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="accountNo" type="xs:int"></xs:element>
+					<xs:element minOccurs="0" name="amount" type="xs:int"></xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="AccountServiceResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="message" nillable="true"
+						type="xs:string"></xs:element>
+					<xs:element minOccurs="0" name="operationResult" type="xs:boolean"></xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema xmlns:ax2463="http://service/xsd"
+			attributeFormDefault="qualified" elementFormDefault="qualified"
+			targetNamespace="http://service">
+			<xs:import namespace="http://service/xsd"></xs:import>
+			<xs:element name="createAccount">
+				<xs:complexType>
+					<xs:sequence></xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="createAccountResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" type="xs:int"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="checkAccount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="accountNo" type="xs:int"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="checkAccountResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" type="xs:boolean"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="checkAccountBalance">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="accountNo" type="xs:int"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="checkAccountBalanceResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" type="xs:int"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="creditAccount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="account" nillable="true"
+							type="ax2462:Account"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="creditAccountResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" nillable="true"
+							type="ax2462:AccountServiceResponse"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="debitAccount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="accountNo" type="xs:int"></xs:element>
+						<xs:element minOccurs="0" name="amount" type="xs:int"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="debitAccountResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="return" type="xs:boolean"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="checkAccountBalanceRequest">
+		<wsdl:part name="parameters" element="ns:checkAccountBalance"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="checkAccountBalanceResponse">
+		<wsdl:part name="parameters" element="ns:checkAccountBalanceResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="checkAccountRequest">
+		<wsdl:part name="parameters" element="ns:checkAccount"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="checkAccountResponse">
+		<wsdl:part name="parameters" element="ns:checkAccountResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createAccountRequest">
+		<wsdl:part name="parameters" element="ns:createAccount"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createAccountResponse">
+		<wsdl:part name="parameters" element="ns:createAccountResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="debitAccountRequest">
+		<wsdl:part name="parameters" element="ns:debitAccount"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="debitAccountResponse">
+		<wsdl:part name="parameters" element="ns:debitAccountResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="creditAccountRequest">
+		<wsdl:part name="parameters" element="ns:creditAccount"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="creditAccountResponse">
+		<wsdl:part name="parameters" element="ns:creditAccountResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="AccountServicePortType">
+		<wsdl:operation name="checkAccountBalance">
+			<wsdl:input message="ns:checkAccountBalanceRequest"
+				wsaw:Action="urn:checkAccountBalance"></wsdl:input>
+			<wsdl:output message="ns:checkAccountBalanceResponse"
+				wsaw:Action="urn:checkAccountBalanceResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="checkAccount">
+			<wsdl:input message="ns:checkAccountRequest" wsaw:Action="urn:checkAccount"></wsdl:input>
+			<wsdl:output message="ns:checkAccountResponse"
+				wsaw:Action="urn:checkAccountResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAccount">
+			<wsdl:input message="ns:createAccountRequest" wsaw:Action="urn:createAccount"></wsdl:input>
+			<wsdl:output message="ns:createAccountResponse"
+				wsaw:Action="urn:createAccountResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="debitAccount">
+			<wsdl:input message="ns:debitAccountRequest" wsaw:Action="urn:debitAccount"></wsdl:input>
+			<wsdl:output message="ns:debitAccountResponse"
+				wsaw:Action="urn:debitAccountResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="creditAccount">
+			<wsdl:input message="ns:creditAccountRequest" wsaw:Action="urn:creditAccount"></wsdl:input>
+			<wsdl:output message="ns:creditAccountResponse"
+				wsaw:Action="urn:creditAccountResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="AccountServiceSoap11Binding" type="ns:AccountServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document"></soap:binding>
+		<wsdl:operation name="checkAccountBalance">
+			<soap:operation soapAction="urn:checkAccountBalance"
+				style="document"></soap:operation>
+			<wsdl:input>
+				<soap:body use="literal"></soap:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"></soap:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="checkAccount">
+			<soap:operation soapAction="urn:checkAccount" style="document"></soap:operation>
+			<wsdl:input>
+				<soap:body use="literal"></soap:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"></soap:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAccount">
+			<soap:operation soapAction="urn:createAccount" style="document"></soap:operation>
+			<wsdl:input>
+				<soap:body use="literal"></soap:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"></soap:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="debitAccount">
+			<soap:operation soapAction="urn:debitAccount" style="document"></soap:operation>
+			<wsdl:input>
+				<soap:body use="literal"></soap:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"></soap:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="creditAccount">
+			<soap:operation soapAction="urn:creditAccount" style="document"></soap:operation>
+			<wsdl:input>
+				<soap:body use="literal"></soap:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"></soap:body>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="AccountServiceSoap12Binding" type="ns:AccountServicePortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document"></soap12:binding>
+		<wsdl:operation name="checkAccountBalance">
+			<soap12:operation soapAction="urn:checkAccountBalance"
+				style="document"></soap12:operation>
+			<wsdl:input>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="checkAccount">
+			<soap12:operation soapAction="urn:checkAccount"
+				style="document"></soap12:operation>
+			<wsdl:input>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAccount">
+			<soap12:operation soapAction="urn:createAccount"
+				style="document"></soap12:operation>
+			<wsdl:input>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="debitAccount">
+			<soap12:operation soapAction="urn:debitAccount"
+				style="document"></soap12:operation>
+			<wsdl:input>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="creditAccount">
+			<soap12:operation soapAction="urn:creditAccount"
+				style="document"></soap12:operation>
+			<wsdl:input>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal"></soap12:body>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="AccountServiceHttpBinding" type="ns:AccountServicePortType">
+		<http:binding verb="POST"></http:binding>
+		<wsdl:operation name="checkAccountBalance">
+			<http:operation location="checkAccountBalance"></http:operation>
+			<wsdl:input>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="checkAccount">
+			<http:operation location="checkAccount"></http:operation>
+			<wsdl:input>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createAccount">
+			<http:operation location="createAccount"></http:operation>
+			<wsdl:input>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="debitAccount">
+			<http:operation location="debitAccount"></http:operation>
+			<wsdl:input>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="creditAccount">
+			<http:operation location="creditAccount"></http:operation>
+			<wsdl:input>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="text/xml" part="parameters"></mime:content>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="AccountService">
+		<wsdl:port name="AccountServiceHttpSoap11Endpoint" binding="ns:AccountServiceSoap11Binding">
+			<soap:address
+				location="http://192.168.40.127:9763/services/AccountService.AccountServiceHttpSoap11Endpoint/"></soap:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceHttpsSoap11Endpoint" binding="ns:AccountServiceSoap11Binding">
+			<soap:address
+				location="https://192.168.40.127:9443/services/AccountService.AccountServiceHttpsSoap11Endpoint/"></soap:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceJmsSoap11Endpoint" binding="ns:AccountServiceSoap11Binding">
+			<soap:address
+				location="jms:/AccountService?transport.jms.DestinationType=queue&amp;transport.jms.ContentTypeProperty=Content-Type&amp;java.naming.provider.url=tcp://localhost:61616&amp;java.naming.factory.initial=org.apache.activemq.jndi.ActiveMQInitialContextFactory&amp;transport.jms.ConnectionFactoryJNDIName=QueueConnectionFactory"></soap:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceHttpSoap12Endpoint" binding="ns:AccountServiceSoap12Binding">
+			<soap12:address
+				location="http://192.168.40.127:9763/services/AccountService.AccountServiceHttpSoap12Endpoint/"></soap12:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceJmsSoap12Endpoint" binding="ns:AccountServiceSoap12Binding">
+			<soap12:address
+				location="jms:/AccountService?transport.jms.DestinationType=queue&amp;transport.jms.ContentTypeProperty=Content-Type&amp;java.naming.provider.url=tcp://localhost:61616&amp;java.naming.factory.initial=org.apache.activemq.jndi.ActiveMQInitialContextFactory&amp;transport.jms.ConnectionFactoryJNDIName=QueueConnectionFactory"></soap12:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceHttpsSoap12Endpoint" binding="ns:AccountServiceSoap12Binding">
+			<soap12:address
+				location="https://192.168.40.127:9443/services/AccountService.AccountServiceHttpsSoap12Endpoint/"></soap12:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceHttpEndpoint" binding="ns:AccountServiceHttpBinding">
+			<http:address
+				location="http://192.168.40.127:9763/services/AccountService.AccountServiceHttpEndpoint/"></http:address>
+		</wsdl:port>
+		<wsdl:port name="AccountServiceHttpsEndpoint" binding="ns:AccountServiceHttpBinding">
+			<http:address
+				location="https://192.168.40.127:9443/services/AccountService.AccountServiceHttpsEndpoint/"></http:address>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
